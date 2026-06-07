@@ -18,6 +18,9 @@ import { PaymentController } from '../modules/payments/payment.controller.js';
 import { OrderController } from '../modules/orders/order.controller.js';
 import { StockController } from '../modules/stock/stock.controller.js';
 import { NotificationController } from '../modules/notifications/notification.controller.js';
+import { ReturnController } from '../modules/returns/return.controller.js';
+import { ReviewController } from '../modules/reviews/review.controller.js';
+import { AdminController } from '../modules/admin/admin.controller.js';
 
 // Schemas
 import {
@@ -70,6 +73,20 @@ import {
 import {
   markReadSchema,
 } from '../modules/notifications/notification.schema.js';
+import {
+  createReturnSchema,
+  resolveReturnSchema,
+  getReturnSchema,
+} from '../modules/returns/return.schema.js';
+import {
+  createReviewSchema,
+  queryReviewsSchema,
+  deleteReviewSchema,
+} from '../modules/reviews/review.schema.js';
+import {
+  toggleUserStatusSchema,
+  queryUsersSchema,
+} from '../modules/admin/admin.schema.js';
 
 const router = Router();
 
@@ -263,5 +280,85 @@ router.patch(
   NotificationController.markAsRead,
 );
 router.patch('/notifications/read-all', requireAuth, NotificationController.markAllAsRead);
+
+// ==========================================
+// RETURN ROUTES
+// ==========================================
+router.post(
+  '/returns',
+  requireAuth,
+  validateRequest(createReturnSchema),
+  ReturnController.create,
+);
+router.get('/returns', requireAuth, ReturnController.getMyReturns);
+router.get(
+  '/returns/:id',
+  requireAuth,
+  validateRequest(getReturnSchema),
+  ReturnController.getById,
+);
+
+// Admin Only
+router.get(
+  '/admin/returns',
+  requireAuth,
+  restrictTo('admin'),
+  ReturnController.getAllReturnsAdmin,
+);
+router.patch(
+  '/admin/returns/:id/status',
+  requireAuth,
+  restrictTo('admin'),
+  validateRequest(resolveReturnSchema),
+  ReturnController.resolveReturnAdmin,
+);
+
+// ==========================================
+// REVIEW ROUTES
+// ==========================================
+router.get(
+  '/products/:id/reviews',
+  validateRequest(queryReviewsSchema),
+  ReviewController.getProductReviews,
+);
+router.post(
+  '/products/:id/reviews',
+  requireAuth,
+  validateRequest(createReviewSchema),
+  ReviewController.submitReview,
+);
+
+// Admin Only
+router.delete(
+  '/admin/reviews/:id',
+  requireAuth,
+  restrictTo('admin'),
+  validateRequest(deleteReviewSchema),
+  ReviewController.deleteReviewAdmin,
+);
+
+// ==========================================
+// ADMIN DASHBOARD ROUTES
+// ==========================================
+router.get(
+  '/admin/users',
+  requireAuth,
+  restrictTo('admin'),
+  validateRequest(queryUsersSchema),
+  AdminController.getUsersList,
+);
+router.patch(
+  '/admin/users/:id/status',
+  requireAuth,
+  restrictTo('admin'),
+  validateRequest(toggleUserStatusSchema),
+  AdminController.toggleUserStatus,
+);
+router.get(
+  '/admin/stats',
+  requireAuth,
+  restrictTo('admin'),
+  AdminController.getDashboardStats,
+);
 
 export { router as indexRouter };
