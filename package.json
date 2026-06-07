@@ -13,7 +13,9 @@
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "test": "vitest",
     "test:unit": "vitest --project=unit",
-    "test:e2e": "vitest --project=e2e"
+    "test:e2e": "vitest --project=e2e",
+    "db:seed": "tsx src/config/seed.ts",
+    "db:reset": "tsx src/config/seed.ts --reset"
   },
   "keywords": [
     "express",
@@ -48,6 +50,7 @@
     "eslint": "^9.4.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
+    "mongodb-memory-server": "^11.2.0",
     "prettier": "^3.3.1",
     "supertest": "^7.0.0",
     "tsc-alias": "^1.8.10",

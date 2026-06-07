@@ -10,9 +10,9 @@ export const validateRequest = (schema: AnyZodObject) => {
         query: req.query,
         params: req.params,
       });
-      req.body = parsed.body;
-      req.query = parsed.query;
-      req.params = parsed.params;
+      if (schema.shape.body) req.body = parsed.body;
+      if (schema.shape.query) req.query = parsed.query;
+      if (schema.shape.params) req.params = parsed.params;
       next();
     } catch (error) {
       if (error instanceof ZodError) {
