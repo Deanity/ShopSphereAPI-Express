@@ -36,7 +36,7 @@ vi.mock('xendit-node', () => {
   };
 });
 
-describe('Phase 4 E2E Integration Tests — Post-Purchase & Quality', () => {
+describe('Phase 4 E2E Integration Tests Post-Purchase & Quality', () => {
   let mongoServer: MongoMemoryServer;
   let customerToken: string;
   let adminToken: string;

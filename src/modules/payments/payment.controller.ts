@@ -21,7 +21,7 @@ export class PaymentController {
       try {
         await PaymentService.handleWebhook(req.body);
       } catch (err) {
-        // Log error and continue — always return 200 OK to Xendit
+        // Log error and continue always return 200 OK to Xendit
         // This prevents duplicate retries from Xendit
         console.error('❌ Error processing Xendit webhook internally:', err);
       }

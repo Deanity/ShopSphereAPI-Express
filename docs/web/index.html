@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopSphere API Reference</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="brand">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">MENU</button>
+      <span class="brand__title">ShopSphere API</span>
+      <span class="brand__version">v1.0.0</span>
+    </div>
+    <div class="top-nav__actions">
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search endpoints (e.g. /products)..." aria-label="Search endpoints">
+      </div>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" aria-label="API endpoints navigation">
+      <div class="group-label">Authentication</div>
+      <a class="endpoint-row" href="#post-auth-register"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/auth/register</span></a>
+      <a class="endpoint-row" href="#post-auth-login"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/auth/login</span></a>
+      <a class="endpoint-row" href="#post-auth-refresh-token"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/auth/refresh-token</span></a>
+      <a class="endpoint-row" href="#post-auth-logout"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/auth/logout</span></a>
+
+      <div class="group-label">Users & Profile</div>
+      <a class="endpoint-row" href="#get-users-me"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/users/me</span></a>
+      <a class="endpoint-row" href="#patch-users-me"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/users/me</span></a>
+      <a class="endpoint-row" href="#post-users-me-addresses"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/users/me/addresses</span></a>
+      <a class="endpoint-row" href="#delete-users-me-addresses-id"><span class="method-badge method-badge--delete">DELETE</span><span class="endpoint-row__path">/users/me/addresses/:id</span></a>
+
+      <div class="group-label">Products</div>
+      <a class="endpoint-row" href="#get-products"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/products</span></a>
+      <a class="endpoint-row" href="#get-products-slug"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/products/:slug</span></a>
+
+      <div class="group-label">Categories</div>
+      <a class="endpoint-row" href="#get-categories"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/categories</span></a>
+      <a class="endpoint-row" href="#get-categories-slug"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/categories/:slug</span></a>
+
+      <div class="group-label">Cart Management</div>
+      <a class="endpoint-row" href="#get-cart"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/cart</span></a>
+      <a class="endpoint-row" href="#post-cart-items"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/cart/items</span></a>
+      <a class="endpoint-row" href="#patch-cart-items-productid"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/cart/items/:productId</span></a>
+      <a class="endpoint-row" href="#delete-cart-items-productid"><span class="method-badge method-badge--delete">DELETE</span><span class="endpoint-row__path">/cart/items/:productId</span></a>
+      <a class="endpoint-row" href="#delete-cart"><span class="method-badge method-badge--delete">DELETE</span><span class="endpoint-row__path">/cart</span></a>
+
+      <div class="group-label">Wishlist</div>
+      <a class="endpoint-row" href="#get-wishlist"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/wishlist</span></a>
+      <a class="endpoint-row" href="#post-wishlist-productid"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/wishlist/:productId</span></a>
+      <a class="endpoint-row" href="#delete-wishlist-productid"><span class="method-badge method-badge--delete">DELETE</span><span class="endpoint-row__path">/wishlist/:productId</span></a>
+
+      <div class="group-label">Shipping (RajaOngkir)</div>
+      <a class="endpoint-row" href="#get-shipping-provinces"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/shipping/provinces</span></a>
+      <a class="endpoint-row" href="#get-shipping-cities"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/shipping/cities</span></a>
+      <a class="endpoint-row" href="#post-shipping-cost"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/shipping/cost</span></a>
+
+      <div class="group-label">Checkout & Orders</div>
+      <a class="endpoint-row" href="#post-checkout"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/checkout</span></a>
+      <a class="endpoint-row" href="#get-orders"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/orders</span></a>
+      <a class="endpoint-row" href="#get-orders-id"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/orders/:id</span></a>
+      <a class="endpoint-row" href="#patch-orders-id-cancel"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/orders/:id/cancel</span></a>
+
+      <div class="group-label">Payments & Webhooks</div>
+      <a class="endpoint-row" href="#post-payments-webhook"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/payments/webhook</span></a>
+
+      <div class="group-label">Reviews</div>
+      <a class="endpoint-row" href="#post-reviews"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/reviews</span></a>
+      <a class="endpoint-row" href="#get-products-slug-reviews"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/products/:slug/reviews</span></a>
+
+      <div class="group-label">Notifications</div>
+      <a class="endpoint-row" href="#get-notifications"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/notifications</span></a>
+      <a class="endpoint-row" href="#patch-notifications-id-read"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/notifications/:id/read</span></a>
+
+      <div class="group-label">Returns & Refunds</div>
+      <a class="endpoint-row" href="#post-returns"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/returns</span></a>
+      <a class="endpoint-row" href="#get-returns-id"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/returns/:id</span></a>
+
+      <div class="group-label">Coupons</div>
+      <a class="endpoint-row" href="#post-coupons-validate"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/coupons/validate</span></a>
+
+      <div class="group-label">Admin — Products</div>
+      <a class="endpoint-row" href="#post-admin-products"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/admin/products</span></a>
+      <a class="endpoint-row" href="#patch-admin-products-id"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/admin/products/:id</span></a>
+      <a class="endpoint-row" href="#delete-admin-products-id"><span class="method-badge method-badge--delete">DELETE</span><span class="endpoint-row__path">/admin/products/:id</span></a>
+
+      <div class="group-label">Admin — Categories</div>
+      <a class="endpoint-row" href="#post-admin-categories"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/admin/categories</span></a>
+      <a class="endpoint-row" href="#patch-admin-categories-id"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/admin/categories/:id</span></a>
+      <a class="endpoint-row" href="#delete-admin-categories-id"><span class="method-badge method-badge--delete">DELETE</span><span class="endpoint-row__path">/admin/categories/:id</span></a>
+
+      <div class="group-label">Admin — Orders</div>
+      <a class="endpoint-row" href="#get-admin-orders"><span class="method-badge method-badge--get">GET</span><span class="endpoint-row__path">/admin/orders</span></a>
+      <a class="endpoint-row" href="#patch-admin-orders-id-status"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/admin/orders/:id/status</span></a>
+
+      <div class="group-label">Admin — Coupons</div>
+      <a class="endpoint-row" href="#post-admin-coupons"><span class="method-badge method-badge--post">POST</span><span class="endpoint-row__path">/admin/coupons</span></a>
+      <a class="endpoint-row" href="#delete-admin-coupons-id"><span class="method-badge method-badge--delete">DELETE</span><span class="endpoint-row__path">/admin/coupons/:id</span></a>
+
+      <div class="group-label">Admin — Returns & Stock</div>
+      <a class="endpoint-row" href="#patch-admin-returns-id-resolve"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/admin/returns/:id/resolve</span></a>
+      <a class="endpoint-row" href="#patch-admin-stock-productid"><span class="method-badge method-badge--patch">PATCH</span><span class="endpoint-row__path">/admin/stock/:productId</span></a>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Section Overview -->
+      <section class="section-overview" id="overview">
+        <h1>ShopSphere API Reference</h1>
+        <p>Production-grade RESTful e-commerce backend built with Express.js, TypeScript, Mongoose, Xendit payment integration, and RajaOngkir shipping calculation.</p>
+
+        <div class="info-grid">
+          <div class="info-card"><div class="info-card__title">Base URL</div><div class="info-card__val">http://localhost:5000/api/v1</div></div>
+          <div class="info-card"><div class="info-card__title">Authentication</div><div class="info-card__val">Bearer &lt;JWT Access Token&gt;</div></div>
+        </div>
+      </section>
+
+      <!-- 1. AUTHENTICATION -->
+      <h2 class="group-title">1. Authentication</h2>
+
+      <article class="endpoint-card" id="post-auth-register">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/auth/register</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">Register a new customer account and return access token.</p>
+        </div>
+        <div class="tabs-header">
+          <button class="tab-btn is-active" data-tab="req">Request</button>
+          <button class="tab-btn" data-tab="res">Response</button>
+          <button class="tab-btn" data-tab="curl">cURL Example</button>
+        </div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">name</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Full user name (e.g. Budi Santoso)</td></tr>
+                <tr><td><span class="param-name">email</span><span class="required-star">*</span></td><td><span class="param-type">string (email)</span></td><td>Valid unique email address</td></tr>
+                <tr><td><span class="param-name">password</span><span class="required-star">*</span></td><td><span class="param-type">string (min 8)</span></td><td>Account password (hashed with bcrypt)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">201 Created</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "message": "Registration successful",
+  "data": {
+    "user": {
+      "_id": "64d3f1a0e1c2b3a4f5e6d7c8",
+      "name": "Budi Santoso",
+      "email": "budi@example.com",
+      "role": "customer"
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}</code></pre>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="curl">
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">cURL</span><button class="copy-btn">Copy</button></div>
+            <pre><code>curl -X POST http://localhost:5000/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Budi Santoso", "email": "budi@example.com", "password": "secretpassword123"}'</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="post-auth-login">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/auth/login</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">Authenticate user credentials and set httpOnly refresh cookie.</p>
+        </div>
+        <div class="tabs-header">
+          <button class="tab-btn is-active" data-tab="req">Request</button>
+          <button class="tab-btn" data-tab="res">Response</button>
+          <button class="tab-btn" data-tab="curl">cURL Example</button>
+        </div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">email</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>User account email</td></tr>
+                <tr><td><span class="param-name">password</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>User account password</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "user": { "_id": "64d3f1a0e1c2b3a4f5e6d7c8", "name": "Budi Santoso", "role": "customer" },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}</code></pre>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="curl">
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">cURL</span><button class="copy-btn">Copy</button></div>
+            <pre><code>curl -X POST http://localhost:5000/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "budi@example.com", "password": "secretpassword123"}'</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="post-auth-refresh-token">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/auth/refresh-token</span>
+            <span class="auth-tag">COOKIE</span>
+          </div>
+          <p class="endpoint-card__desc">Issue a new 15-minute access token using refreshToken cookie.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Token refreshed", "data": { "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="post-auth-logout">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/auth/logout</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Log out current user session and clear refreshToken cookie.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Logged out successfully", "data": null }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. USERS -->
+      <h2 class="group-title">2. Users & Profile</h2>
+      <article class="endpoint-card" id="get-users-me">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/users/me</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Get profile details and addresses of current logged in user.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "message": "User profile retrieved",
+  "data": {
+    "_id": "64d3f1a0e1c2b3a4f5e6d7c8",
+    "name": "Budi Santoso",
+    "email": "budi@example.com",
+    "role": "customer",
+    "phone": "081234567890",
+    "addresses": [
+      {
+        "_id": "64d3f1a0e1c2b3a4f5e6d7c9",
+        "label": "Rumah",
+        "recipientName": "Budi Santoso",
+        "phone": "081234567890",
+        "province": "Jawa Barat",
+        "city": "Bandung",
+        "district": "Coblong",
+        "postalCode": "40132",
+        "fullAddress": "Jl. Dago No. 123",
+        "isDefault": true
+      }
+    ]
+  }
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="patch-users-me">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--patch">PATCH</span>
+            <span class="endpoint-card__path">/api/v1/users/me</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Update profile information (name, phone, avatar).</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Request</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">name</span></td><td><span class="param-type">string</span></td><td>Updated name</td></tr>
+                <tr><td><span class="param-name">phone</span></td><td><span class="param-type">string</span></td><td>Updated phone number</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Profile updated", "data": { "name": "Budi Santoso", "phone": "081987654321" } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="post-users-me-addresses">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/users/me/addresses</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Add new shipping address to user profile.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Request</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">label</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Address label (e.g. Rumah, Kantor)</td></tr>
+                <tr><td><span class="param-name">recipientName</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Recipient name</td></tr>
+                <tr><td><span class="param-name">phone</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Recipient phone</td></tr>
+                <tr><td><span class="param-name">province</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Province name</td></tr>
+                <tr><td><span class="param-name">city</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>City name</td></tr>
+                <tr><td><span class="param-name">fullAddress</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Full street address</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">201 Created</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Address added", "data": { "_id": "64d3f1a0e1c2b3a4f5e6d7c9", "label": "Kantor" } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="delete-users-me-addresses-id">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--delete">DELETE</span>
+            <span class="endpoint-card__path">/api/v1/users/me/addresses/:id</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Remove address entry from user profile.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Address deleted", "data": null }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. PRODUCTS -->
+      <h2 class="group-title">3. Products</h2>
+      <article class="endpoint-card" id="get-products">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/products</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">List products with pagination, search, category & price range filters.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Parameters</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Param</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">search</span></td><td><span class="param-type">string</span></td><td>Atlas Search query (name, tags)</td></tr>
+                <tr><td><span class="param-name">page / limit</span></td><td><span class="param-type">number</span></td><td>Pagination (default: page=1, limit=20)</td></tr>
+                <tr><td><span class="param-name">sort</span></td><td><span class="param-type">string</span></td><td>best_selling | price_asc | price_desc | newest</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "data": [{ "_id": "64d3f2a1e1c2b3a4f5e6d7c9", "name": "Kemeja Batik Premium", "price": 250000, "discountPercent": 10, "discountedPrice": 225000, "stock": 45 }],
+  "meta": { "page": 1, "limit": 20, "total": 150, "totalPages": 8 }
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="get-products-slug">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/products/:slug</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">Get single product detail by unique slug identifier.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "data": {
+    "_id": "64d3f2a1e1c2b3a4f5e6d7c9",
+    "name": "Kemeja Batik Premium",
+    "slug": "kemeja-batik-premium",
+    "price": 250000,
+    "discountPercent": 10,
+    "discountedPrice": 225000,
+    "weight": 300,
+    "stock": 45,
+    "averageRating": 4.8
+  }
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. CATEGORIES -->
+      <h2 class="group-title">4. Categories</h2>
+      <article class="endpoint-card" id="get-categories">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/categories</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">List all product categories in hierarchical tree structure.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "data": [
+    {
+      "_id": "64d3f000e1c2b3a4f5e6d7a1",
+      "name": "Pakaian",
+      "slug": "pakaian",
+      "children": [
+        { "_id": "64d3f000e1c2b3a4f5e6d7a2", "name": "Pakaian Pria", "slug": "pakaian-pria" }
+      ]
+    }
+  ]
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="get-categories-slug">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/categories/:slug</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">Get single category details and child categories by slug.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "data": { "_id": "64d3f000e1c2b3a4f5e6d7a2", "name": "Pakaian Pria", "slug": "pakaian-pria" } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. CART -->
+      <h2 class="group-title">5. Cart Management</h2>
+      <article class="endpoint-card" id="get-cart">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/cart</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Get current user cart with price snapshot and item availability check.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "data": {
+    "items": [{ "product": { "_id": "64d3f2a1e1c2b3a4f5e6d7c9", "name": "Kemeja Batik", "price": 225000 }, "quantity": 2, "priceSnapshot": 225000, "isAvailable": true }],
+    "summary": { "totalItems": 2, "subtotal": 450000 }
+  }
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="post-cart-items">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/cart/items</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Add item to user cart. Max 20 unique items per cart.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Request</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">productId</span><span class="required-star">*</span></td><td><span class="param-type">ObjectId</span></td><td>Target product ID</td></tr>
+                <tr><td><span class="param-name">quantity</span><span class="required-star">*</span></td><td><span class="param-type">number</span></td><td>Item quantity (min 1)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Item added to cart", "data": { "totalItems": 2, "subtotal": 450000 } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="patch-cart-items-productid">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--patch">PATCH</span>
+            <span class="endpoint-card__path">/api/v1/cart/items/:productId</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Update quantity of existing cart item.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Request</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">quantity</span><span class="required-star">*</span></td><td><span class="param-type">number</span></td><td>New quantity (>= 1)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Cart item updated", "data": null }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="delete-cart-items-productid">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--delete">DELETE</span>
+            <span class="endpoint-card__path">/api/v1/cart/items/:productId</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Remove product item from cart.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Cart item deleted", "data": null }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="delete-cart">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--delete">DELETE</span>
+            <span class="endpoint-card__path">/api/v1/cart</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Clear all items in user cart.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Cart cleared", "data": null }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. WISHLIST -->
+      <h2 class="group-title">6. Wishlist</h2>
+      <article class="endpoint-card" id="get-wishlist">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/wishlist</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Retrieve customer saved wishlist items.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "data": [{ "_id": "64d3f2a1e1c2b3a4f5e6d7c9", "name": "Kemeja Batik Premium", "price": 225000 }] }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="post-wishlist-productid">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/wishlist/:productId</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Add product to user wishlist.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Product added to wishlist", "data": null }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="delete-wishlist-productid">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--delete">DELETE</span>
+            <span class="endpoint-card__path">/api/v1/wishlist/:productId</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Remove product from user wishlist.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Product removed from wishlist", "data": null }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7. SHIPPING -->
+      <h2 class="group-title">7. Shipping (RajaOngkir)</h2>
+      <article class="endpoint-card" id="get-shipping-provinces">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/shipping/provinces</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">Fetch list of Indonesian provinces from RajaOngkir API.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "data": [{ "province_id": "9", "province": "Jawa Barat" }] }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="get-shipping-cities">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/shipping/cities</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">Fetch list of cities by province ID.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Parameters</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Query Param</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">provinceId</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>RajaOngkir province ID</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "data": [{ "city_id": "23", "city_name": "Bandung", "type": "Kota" }] }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="post-shipping-cost">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/shipping/cost</span>
+            <span class="auth-tag">PUBLIC</span>
+          </div>
+          <p class="endpoint-card__desc">Calculate real-time shipping cost using destination city ID, total weight (g), and courier selection.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Request</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">destinationCityId</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>RajaOngkir destination city ID</td></tr>
+                <tr><td><span class="param-name">weight</span><span class="required-star">*</span></td><td><span class="param-type">number</span></td><td>Total weight in grams</td></tr>
+                <tr><td><span class="param-name">courier</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>jne | pos | tiki | sicepat</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "data": {
+    "courier": "jne",
+    "services": [
+      { "service": "REG", "description": "Layanan Reguler", "cost": 22000, "estimatedDays": "2-3" },
+      { "service": "YES", "description": "Yakin Esok Sampai", "cost": 34000, "estimatedDays": "1-1" }
+    ]
+  }
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8. CHECKOUT -->
+      <h2 class="group-title">8. Checkout & Orders</h2>
+      <article class="endpoint-card" id="post-checkout">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/checkout</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Process cart checkout, lock item snapshots, verify stock, calculate shipping cost via RajaOngkir, apply optional coupon code, and generate Xendit payment link.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Request</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">addressId</span><span class="required-star">*</span></td><td><span class="param-type">ObjectId</span></td><td>Saved delivery address ID</td></tr>
+                <tr><td><span class="param-name">courier</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>jne | pos | tiki | sicepat</td></tr>
+                <tr><td><span class="param-name">service</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Selected courier service code</td></tr>
+                <tr><td><span class="param-name">couponCode</span></td><td><span class="param-type">string</span></td><td>Optional discount code</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">201 Created</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "message": "Order created successfully",
+  "data": {
+    "orderId": "64d3f3b1e1c2b3a4f5e6d7e1",
+    "orderNumber": "ORD-20260802-98412",
+    "subtotal": 450000,
+    "shippingCost": 22000,
+    "discountAmount": 0,
+    "totalAmount": 472000,
+    "paymentUrl": "https://checkout.xendit.co/web/64d3f3b1e1c2b3a4f5e6d7e1"
+  }
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="get-orders">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/orders</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Get paginated order history for current customer.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "data": [
+    {
+      "_id": "64d3f3b1e1c2b3a4f5e6d7e1",
+      "orderNumber": "ORD-20260802-98412",
+      "status": "shipped",
+      "paymentStatus": "paid",
+      "totalAmount": 472000,
+      "createdAt": "2026-08-02T14:00:00.000Z"
+    }
+  ],
+  "meta": { "page": 1, "limit": 20, "total": 1, "totalPages": 1 }
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="get-orders-id">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/orders/:id</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Get full order detail including item snapshot, delivery address snapshot, tracking number, and Xendit payment status.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "data": {
+    "_id": "64d3f3b1e1c2b3a4f5e6d7e1",
+    "orderNumber": "ORD-20260802-98412",
+    "items": [{ "product": "64d3f2a1e1c2b3a4f5e6d7c9", "name": "Kemeja Batik Premium", "price": 225000, "quantity": 2 }],
+    "shippingAddress": { "recipientName": "Budi Santoso", "fullAddress": "Jl. Dago No. 123", "city": "Bandung" },
+    "shipping": { "courier": "jne", "service": "REG", "cost": 22000 },
+    "subtotal": 450000,
+    "shippingCost": 22000,
+    "totalAmount": 472000,
+    "status": "shipped",
+    "paymentStatus": "paid"
+  }
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="patch-orders-id-cancel">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--patch">PATCH</span>
+            <span class="endpoint-card__path">/api/v1/orders/:id/cancel</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Cancel order (allowed within 1 hour after payment or while status is pending_payment).</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Order cancelled successfully", "data": { "status": "cancelled" } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9. PAYMENTS -->
+      <h2 class="group-title">9. Payments (Xendit Webhook)</h2>
+      <article class="endpoint-card" id="post-payments-webhook">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/payments/webhook</span>
+            <span class="auth-tag">WEBHOOK TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Xendit Invoice callback handler. Automatically updates paymentStatus to PAID, decrements product stock, and triggers customer notifications upon payment confirmation.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Header & Payload</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Header / Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">x-callback-token</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Xendit Webhook Security Token Header</td></tr>
+                <tr><td><span class="param-name">id</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Xendit Invoice ID</td></tr>
+                <tr><td><span class="param-name">status</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>PAID | EXPIRED</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Webhook processed successfully", "data": null }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10. REVIEWS & NOTIFICATIONS -->
+      <h2 class="group-title">10. Reviews & Notifications</h2>
+      <article class="endpoint-card" id="post-reviews">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/reviews</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Submit product review (enforces: user must have a DELIVERED order containing the product).</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="req">Request</button><button class="tab-btn" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="req">
+          <div class="table-container">
+            <table class="param-table">
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><span class="param-name">product</span><span class="required-star">*</span></td><td><span class="param-type">ObjectId</span></td><td>Target product ID</td></tr>
+                <tr><td><span class="param-name">order</span><span class="required-star">*</span></td><td><span class="param-type">ObjectId</span></td><td>Delivered order ID</td></tr>
+                <tr><td><span class="param-name">rating</span><span class="required-star">*</span></td><td><span class="param-type">number (1-5)</span></td><td>Star rating</td></tr>
+                <tr><td><span class="param-name">comment</span><span class="required-star">*</span></td><td><span class="param-type">string</span></td><td>Review text comment</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="res">
+          <span class="status-chip status-chip--2xx">201 Created</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Review submitted successfully", "data": { "rating": 5 } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="get-notifications">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--get">GET</span>
+            <span class="endpoint-card__path">/api/v1/notifications</span>
+            <span class="auth-tag">BEARER TOKEN</span>
+          </div>
+          <p class="endpoint-card__desc">Get customer in-app notifications (order status changes, return updates, stock alerts).</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "success": true,
+  "data": [
+    { "_id": "64d3f4a1e1c2b3a4f5e6d7f9", "type": "order_shipped", "title": "Pesanan Dikirim", "body": "Pesanan ORD-20260802-98412 telah dikirim via JNE.", "isRead": false }
+  ]
+}</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <!-- 11. ADMIN OPERATIONS -->
+      <h2 class="group-title">11. Admin Operations</h2>
+      <article class="endpoint-card" id="post-admin-products">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--post">POST</span>
+            <span class="endpoint-card__path">/api/v1/admin/products</span>
+            <span class="auth-tag">ADMIN ONLY</span>
+          </div>
+          <p class="endpoint-card__desc">Create new product listing in catalog.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">201 Created</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Product created", "data": { "_id": "64d3f2a1e1c2b3a4f5e6d7c9", "name": "Sepatu Lari Sport" } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="patch-admin-orders-id-status">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--patch">PATCH</span>
+            <span class="endpoint-card__path">/api/v1/admin/orders/:id/status</span>
+            <span class="auth-tag">ADMIN ONLY</span>
+          </div>
+          <p class="endpoint-card__desc">Move order status forward (processing -> shipped -> delivered). Requires trackingNumber for shipped state.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Order status updated", "data": { "status": "shipped" } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <article class="endpoint-card" id="patch-admin-stock-productid">
+        <div class="endpoint-card__header">
+          <div class="endpoint-card__title-row">
+            <span class="method-badge method-badge--patch">PATCH</span>
+            <span class="endpoint-card__path">/api/v1/admin/stock/:productId</span>
+            <span class="auth-tag">ADMIN ONLY</span>
+          </div>
+          <p class="endpoint-card__desc">Manually adjust product stock quantity with audit logging.</p>
+        </div>
+        <div class="tabs-header"><button class="tab-btn is-active" data-tab="res">Response</button></div>
+        <div class="tab-panel is-active" data-panel="res">
+          <span class="status-chip status-chip--2xx">200 OK</span>
+          <div class="code-block">
+            <div class="code-block__header"><span class="code-block__lang">JSON</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{ "success": true, "message": "Stock adjusted successfully", "data": { "stock": 100 } }</code></pre>
+          </div>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

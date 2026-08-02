@@ -37,11 +37,11 @@ vi.mock('xendit-node', () => {
   };
 });
 
-describe('Phase 2 E2E Integration Tests — Purchase Flow', () => {
+describe('Phase 2 E2E Integration Tests Purchase Flow', () => {
   let mongoServer: MongoMemoryServer;
   let customerToken: string;
   let adminToken: string;
-  
+
   let categoryId: string;
   let productId: string;
   let productSlug: string;
