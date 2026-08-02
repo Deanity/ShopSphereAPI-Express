@@ -1,4 +1,4 @@
-﻿# PRD — ShopSphere API Documentation Website
+﻿# PRD ShopSphere API Documentation Website
 
 > Product Requirements Document for the static documentation site that accompanies the ShopSphere API backend.
 > This is a **frontend-only** project (no framework, vanilla HTML/CSS/JS) served from `docs/web/` inside the main repo.
@@ -9,7 +9,7 @@
 
 - **Name**        : ShopSphere API Docs
 - **Description** : A static, single-page API reference website for the ShopSphere e-commerce backend. Developers and integrators use it to browse endpoints, read parameter contracts, and copy example request/response bodies.
-- **Goal**        : Replace the README as the primary integration reference — scannable, visually structured, and fast to navigate without a local server.
+- **Goal**        : Replace the README as the primary integration reference scannable, visually structured, and fast to navigate without a local server.
 - **Target Users**:
   - Frontend / mobile developers integrating with the API
   - Potential employers or collaborators reviewing the portfolio project
@@ -27,9 +27,9 @@
 | Behavior    | Vanilla JavaScript (ES modules)  | Sidebar active state, tab switching, copy-to-clipboard        |
 | Fonts       | Google Fonts CDN                 | Archivo Black · Work Sans · Space Mono (all from Design.md)  |
 | Hosting     | GitHub Pages / Vercel (static)   | Zero-config, free tier sufficient                            |
-| No build    | —                                | No Webpack / Vite / Node required; open `index.html` locally |
+| No build    |                                | No Webpack / Vite / Node required; open `index.html` locally |
 
-> **Package manager**: None — this sub-project has no `package.json`.
+> **Package manager**: None this sub-project has no `package.json`.
 > All assets (fonts, icons) are loaded from CDN or embedded inline.
 
 ---
@@ -53,7 +53,7 @@ docs/
 
 ---
 
-## 4. Design System — Token Map
+## 4. Design System Token Map
 
 Sourced directly from `Design.md`. Implemented as CSS custom properties in `:root`.
 
@@ -123,11 +123,11 @@ Base unit **8px**. Scale: `4 / 8 / 16 / 24 / 32 / 48 / 64 / 96`.
 
 ### Rules (non-negotiable)
 
-- `border-radius: 0` everywhere — no exceptions
-- No box-shadow — hierarchy via borders and weight only
+- `border-radius: 0` everywhere no exceptions
+- No box-shadow hierarchy via borders and weight only
 - Red (`#EF4444`) used **only** for: DELETE badges · required-param asterisks · active tab underline
-- Every endpoint path rendered in `Space Mono` — never `Work Sans`
-- No syntax-highlight color inside code blocks — monochrome only
+- Every endpoint path rendered in `Space Mono` never `Work Sans`
+- No syntax-highlight color inside code blocks monochrome only
 
 ---
 
@@ -154,7 +154,7 @@ Base unit **8px**. Scale: `4 / 8 / 16 / 24 / 32 / 48 / 64 / 96`.
 
 ### Top Nav
 
-- Left: site title in `--text-headline` (Archivo Black, 28px) — no logo image
+- Left: site title in `--text-headline` (Archivo Black, 28px) no logo image
 - Right: `v1.0.0` in overline style + optional search input (Text Input from VoiceBox spec)
 - `border-bottom: var(--border-strong)`; background `--color-bg`
 - Height: 56px; sticky on scroll
@@ -231,14 +231,14 @@ All components follow `Design.md` exactly. Implementation notes below.
 
 - Border: `var(--border-strong)` on all sides
 - Padding: 24px
-- `endpoint-card__path`: Space Mono 16px — never wraps mid-segment
+- `endpoint-card__path`: Space Mono 16px never wraps mid-segment
 
 ### 6.4 Tabs
 
 - Active tab: `border-bottom: 3px solid var(--color-secondary)` (red underline)
 - Inactive tab text: `var(--color-text-tertiary)`; active: `var(--color-text-primary)`
 - Font: Work Sans 13px, weight 700, uppercase, letter-spacing 0.04em
-- No background fill on tabs — underline is the only indicator
+- No background fill on tabs underline is the only indicator
 
 ### 6.5 Code Block
 
@@ -250,7 +250,7 @@ All components follow `Design.md` exactly. Implementation notes below.
 ```
 
 - Background: `var(--color-surface)`, border: `var(--border-strong)`, padding: 16px
-- Font: Space Mono 14px — monochrome only, no syntax highlight
+- Font: Space Mono 14px monochrome only, no syntax highlight
 - Copy button: top-right, Work Sans 12px, shows "Copied!" for 1.5s
 
 ### 6.6 Param Table
@@ -263,7 +263,7 @@ All components follow `Design.md` exactly. Implementation notes below.
 | Description | Work Sans 13px, `var(--color-text-secondary)`     |
 
 - Row border-bottom: `var(--border-subtle)`
-- No striped rows — borders do the separation
+- No striped rows borders do the separation
 
 ### 6.7 Status Chip
 
@@ -309,12 +309,12 @@ Sections follow the sidebar group structure. Each group = one `<section>` with a
 | 12 | Notifications        | GET /notifications · PATCH /notifications/:id/read · PATCH /notifications/read-all  |
 | 13 | Returns              | POST /returns · GET /returns/:id                                                     |
 | 14 | Coupons (public)     | POST /coupons/validate                                                               |
-| 15 | Admin — Products     | POST /admin/products · PATCH /admin/products/:id · DELETE /admin/products/:id        |
-| 16 | Admin — Categories   | POST /admin/categories · PATCH /admin/categories/:id · DELETE /admin/categories/:id  |
-| 17 | Admin — Orders       | GET /admin/orders · PATCH /admin/orders/:id/status                                   |
-| 18 | Admin — Coupons      | POST /admin/coupons · PATCH /admin/coupons/:id · DELETE /admin/coupons/:id           |
-| 19 | Admin — Returns      | GET /admin/returns · PATCH /admin/returns/:id/resolve                                |
-| 20 | Admin — Stock        | PATCH /admin/stock/:productId                                                        |
+| 15 | Admin Products     | POST /admin/products · PATCH /admin/products/:id · DELETE /admin/products/:id        |
+| 16 | Admin Categories   | POST /admin/categories · PATCH /admin/categories/:id · DELETE /admin/categories/:id  |
+| 17 | Admin Orders       | GET /admin/orders · PATCH /admin/orders/:id/status                                   |
+| 18 | Admin Coupons      | POST /admin/coupons · PATCH /admin/coupons/:id · DELETE /admin/coupons/:id           |
+| 19 | Admin Returns      | GET /admin/returns · PATCH /admin/returns/:id/resolve                                |
+| 20 | Admin Stock        | PATCH /admin/stock/:productId                                                        |
 
 > Admin group labels use the Overline style with an "Admin Only" prefix to make the access boundary obvious at a glance.
 
@@ -376,7 +376,7 @@ No external libraries. No jQuery. No fetch calls. Fully static.
 - No images except the favicon SVG
 - Semantic HTML: `<nav>`, `<main>`, `<section>`, `<header>`, `<article>` used correctly
 - ARIA: sidebar `<nav aria-label="API endpoints">`, tabs use `role="tablist"` / `role="tab"` / `role="tabpanel"`
-- Focus ring: 2px offset ring in `#0A0A0A` — never removed, only restyled
+- Focus ring: 2px offset ring in `#0A0A0A` never removed, only restyled
 - Color contrast: all text combinations exceed WCAG AA
 
 ---
@@ -388,9 +388,9 @@ No external libraries. No jQuery. No fetch calls. Fully static.
 - [x] PRD written
 - [x] Design system defined (Design.md)
 
-# In Progress — do not modify without confirmation
+# In Progress do not modify without confirmation
 - [ ] index.html shell + layout structure
-- [ ] style.css — token map + base reset
+- [ ] style.css token map + base reset
 
 # Not Started
 - [ ] Sidebar with all endpoint groups
@@ -410,21 +410,21 @@ No external libraries. No jQuery. No fetch calls. Fully static.
 
 ```
 # Structure
-- Do not create additional HTML files — everything lives in index.html
-- Do not add a JS framework (React, Vue, Alpine) — vanilla only
-- Do not add a CSS framework (Tailwind, Bootstrap) — vanilla CSS only
+- Do not create additional HTML files everything lives in index.html
+- Do not add a JS framework (React, Vue, Alpine) vanilla only
+- Do not add a CSS framework (Tailwind, Bootstrap) vanilla CSS only
 - Do not add a build step without explicit confirmation
 
 # Design Rules (from Design.md)
 - Do not use border-radius anywhere
 - Do not use box-shadow for any component
 - Do not use red (#EF4444) outside: DELETE badges, required-param asterisks, active tab underline
-- Do not render an endpoint path in Work Sans — Space Mono only
+- Do not render an endpoint path in Work Sans Space Mono only
 - Do not add syntax-highlight colors inside code blocks
 
 # Content
 - Do not document internal/private endpoints not listed in Section 7
-- Do not add dummy or placeholder data — use real ShopSphere request/response shapes from GEMINI.md
+- Do not add dummy or placeholder data use real ShopSphere request/response shapes from GEMINI.md
 ```
 
 ---

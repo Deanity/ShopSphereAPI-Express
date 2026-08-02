@@ -1,4 +1,4 @@
-/* VoiceBox Dev Docs Edition — ShopSphere API Documentation */
+/* VoiceBox Dev Docs Edition ShopSphere API Documentation */
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
 
 :root {
@@ -36,7 +36,9 @@
 }
 
 /* Reset & Strict Brutalist Rules */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -62,7 +64,8 @@ a {
   text-decoration: none;
 }
 
-button, input {
+button,
+input {
   font-family: inherit;
   font-size: inherit;
   background: none;
@@ -165,12 +168,15 @@ button, input {
   top: 60px;
   height: calc(100vh - 60px);
   overflow-y: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE & Edge */
 }
 
 .sidebar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 .group-label {
@@ -393,7 +399,8 @@ button, input {
 
 .tab-btn.is-active {
   color: var(--color-text-primary);
-  border-bottom-color: var(--color-secondary); /* Red underline scalpel rule */
+  border-bottom-color: var(--color-secondary);
+  /* Red underline scalpel rule */
 }
 
 .tab-panel {
